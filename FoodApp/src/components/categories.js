@@ -1,6 +1,5 @@
 import { View, Text , ScrollView, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { categoryData } from '../constants'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 

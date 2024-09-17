@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native'
 import React, { useEffect } from 'react'
-import { StatusBar } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
@@ -11,17 +10,17 @@ const WelcomeScreen = () => {
 
     const navigation = useNavigation();
 
-    useEffect(()=>{
-        ring1padding.value = 0
-        ring2padding.value = 0
-        setTimeout(()=> ring1padding.value = withSpring(ring1padding.value+hp(5)), 100);
-        setTimeout(()=> ring2padding.value = withSpring(ring2padding.value+hp(5.5)), 300);
+    useEffect(() => {
+        ring1padding.value = 0;
+        ring2padding.value = 0;
+        setTimeout(() => ring1padding.value = withSpring(ring1padding.value+hp(5)), 100);
+        setTimeout(() => ring2padding.value = withSpring(ring2padding.value+hp(5.5)), 300);
 
-        setTimeout(()=> navigation.navigate('Home'),2500)
-    },[])
+        setTimeout(() => navigation.navigate('Home'), 2500);
+    }, []);
+
     return (
-        <View className="flex-1 justify-center items-center space-y-10 bg-amber-500 ">
-
+        <View className="flex-1 justify-center items-center space-y-10 bg-amber-500">
             {/* Logo image with rings */}
             <Animated.View className="bg-white/20 rounded-full" style={{padding: ring2padding}}>
                 <Animated.View className="bg-white/20 rounded-full" style={{padding: ring1padding}}>
@@ -41,10 +40,8 @@ const WelcomeScreen = () => {
                     Food is always right
                 </Text>
             </View>
-
-
         </View>
-    )
-}
+    );
+};
 
-export default WelcomeScreen
+export default WelcomeScreen;
