@@ -6,6 +6,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import Loading from './loading';
 import { CachedImage } from '../helpers/image';
 import {useNavigation} from "@react-navigation/native";
+import {SharedElement} from "react-navigation-shared-element";
 
 export default function Recipes({ categories, meals }) {
     const [showMasonryList, setShowMasonryList] = useState(false);
@@ -65,6 +66,7 @@ const RecipeCard = ({item, index, navigation}) => {
                 {/*  }}*/}
                 {/*  className="bg-black/5"*/}
                 {/*/>*/}
+                <Animated.View sharedTransitionTag={item.strMeal} className="flex-row justify-center">
                 <CachedImage
                     uri= {item.strMealThumb}
                     style={{
@@ -74,6 +76,7 @@ const RecipeCard = ({item, index, navigation}) => {
                     }}
                     className="bg-black/5"
                 />
+                </Animated.View>
                 <Text
                     style={{fontSize: hp(1.5)}}
                     className="font-semibold ml-2 text-neutral-600"

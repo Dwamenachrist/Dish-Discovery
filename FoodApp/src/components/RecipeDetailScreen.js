@@ -8,6 +8,8 @@ import {useNavigation} from "@react-navigation/native";
 import axios from "axios";
 import Loading from "./loading";
 import YoutubePlayer from "react-native-youtube-iframe";
+import {CachedImage} from "../helpers/image";
+import Animated, {FadeIn, FadeInDown} from 'react-native-reanimated';
 
 export default function RecipeDetailScreen(props) {
     let item = props.route.params;
@@ -64,25 +66,25 @@ export default function RecipeDetailScreen(props) {
         >
             <StatusBar translucent backgroundColor="transparent" style="light-content" />
             {/* Recipe Image */}
-            <View className="flex-row justify-center">
-                <Image
-                    source={{uri: item.strMealThumb}}
+                <CachedImage
+                    uri= {item.strMealThumb}
                     style={{
                         width: wp(98), height: hp(50), borderRadius: 30, marginTop: 4
                     }}
                     className="bg-black/5"
+                    sharedTransitionTag={item.strMeal}
                 />
-            </View>
+
 
             {/* Back button and Favorite button */}
-            <View className="w-full absolute flex-row justify-between items-center pt-14">
+            <Animated.View entering={FadeIn.delay(200).duration(1000).springify().damping(12)} className="w-full absolute flex-row justify-between items-center pt-14">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="bg-white p-2 rounded-full ml-5">
                     <ChevronLeftIcon size={hp(4.5)} strokeWidth={4.5} color="#fbbf42" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setIsFavourite(!isFavourite)} className="bg-white p-2 rounded-full mr-5">
                     <HeartIcon size={hp(4.5)} strokeWidth={4.5} color={isFavourite ? "red" : "gray"} />
                 </TouchableOpacity>
-            </View>
+            </Animated.View>
 
             {/* Meal description */}
             {loading ? (
@@ -90,17 +92,17 @@ export default function RecipeDetailScreen(props) {
             ) : (
                 <View className="px-4 flex justify-between pt-8 space-y-4">
                     {/* Name and area */}
-                    <View className="space-y-2">
+                    <Animated.View entering={FadeInDown.duration(700).springify().damping(12)} className="space-y-2">
                         <Text style={{fontSize: hp(3)}} className="font-bold text-neutral-700">
                             {meal?.strMeal}
                         </Text>
                         <Text style={{fontSize: hp(2)}} className="font-medium text-neutral-500">
                             {meal?.strArea}
                         </Text>
-                    </View>
+                    </Animated.View>
 
                     {/* Meal stats */}
-                    <View className="flex-row justify-around pt-1">
+                    <Animated.View entering={FadeInDown.delay(100).duration(700).springify().damping(12)} className="flex-row justify-around pt-1">
                         {/* Time */}
                         <View className="flex rounded-full bg-amber-300 p-3">
                             <View className="bg-white rounded-full flex items-center justify-center">
@@ -143,10 +145,10 @@ export default function RecipeDetailScreen(props) {
                                 <Text style={{fontSize: hp(1.3)}} className="font-bold text-neutral-700">Easy</Text>
                             </View>
                         </View>
-                    </View>
+                    </Animated.View>
 
                     {/* Ingredients */}
-                    <View className="space-y-4">
+                    <Animated.View entering={FadeInDown.delay(200).duration(700).springify().damping(12)} className="space-y-4">
                         <Text style={{fontSize: hp(2.5)}} className="font-bold text-neutral-700">Ingredients</Text>
                         <View className="space-y-2 ml-3">
                             {getIngredients(meal).map((item, index) => (
@@ -159,20 +161,20 @@ export default function RecipeDetailScreen(props) {
                                 </View>
                             ))}
                         </View>
-                    </View>
+                    </Animated.View>
 
                     {/* Instructions */}
-                    <View className="space-y-4">
+                    <Animated.View entering={FadeInDown.delay(300).duration(700).springify().damping(12)} className="space-y-4">
                         <Text style={{fontSize: hp(2.5)}} className="font-bold text-neutral-700">Instructions</Text>
                         <Text style={{fontSize: hp(1.6)}} className="text-neutral-700">
                             {meal?.strInstructions}
                         </Text>
-                    </View>
-                    
+                    </Animated.View>
+
                     {/* recipe video */}
 
                         { meal.strYoutube && (
-                            <View className={"space-y-4"}>
+                            <Animated.View entering={FadeInDown.delay(400).duration(700).springify().damping(12)} className={"space-y-4"}>
                                 <Text style={{fontSize: hp(2.5)}} className="font-bold text-neutral-700">Recipe Video</Text>
 
                                 <View>
@@ -181,7 +183,7 @@ export default function RecipeDetailScreen(props) {
                                   videoId={getYoutubeVideoId(meal.strYoutube)}
                                 />
                                 </View>
-                            </View>
+                            </Animated.View>
 
                         )
                     }
